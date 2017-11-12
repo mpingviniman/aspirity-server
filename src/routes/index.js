@@ -53,11 +53,13 @@ let checkObject = todo => {
 
   try {
     let date = new Date(todo.term);
-    if (date >= new Date()) {
-      result.term = date;
+    if (date <= new Date()) {
       return {'error': 'term invalid'};
+    } else {
+      result.term = date;
     }
   } catch (e) {
+    console.log(e);
     return {'error': 'term invalid'};
   }
   result.position = todo.position;
