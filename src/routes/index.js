@@ -39,7 +39,7 @@ let checkObject = todo => {
   }
 
   if (!todo.hasOwnProperty('priority') || typeof todo.priority !== 'number' ||
-      todo.priority.length in Schema.priority) {
+    todo.priority.length in Schema.priority) {
     return {'error': 'priority invalid'};
   } else {
     result.priority = todo.priority;
@@ -53,8 +53,9 @@ let checkObject = todo => {
 
   try {
     let date = new Date(todo.term);
-    if (date <= new Date()) {
+    if (date >= new Date()) {
       result.term = date;
+      return {'error': 'term invalid'};
     }
   } catch (e) {
     return {'error': 'term invalid'};
@@ -69,7 +70,7 @@ let checkObject = todo => {
  * @returns {Promise.<void>}
  */
 const getTodos = async ctx => {
-  ctx.body = await ctx.app.todos.find().sort({ position: 1}).toArray();
+  ctx.body = await ctx.app.todos.find().sort({position: 1}).toArray();
 };
 
 /**
